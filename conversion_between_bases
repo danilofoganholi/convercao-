@@ -1,0 +1,407 @@
+from time import sleep
+
+#SPACE
+def es():
+    print('')
+def superEs():
+    for i in range(50):
+        print('')
+
+#CALCULATE
+def calcula():
+    sleep(1)
+    print('Calculando', end='')
+    sleep(0.5)
+    print('.', end='')
+    sleep(0.5)
+    print('.', end='')
+    sleep(0.5)
+    print('.')
+    sleep(1)
+    print('')
+
+#BASIC VALIDATION 1
+def VAL1():
+     x=0
+     while x!=2 and x!=10 and x!=16:
+         x=int(input('Digite a base do 1º número a ser convertido(2,10,16): '))
+         es()
+         if x!=2 and x!=10 and x!=16:
+             print('Erro. Tente novamente.')
+             es()
+     return x
+
+#BASIC VALIDATION 2
+def VAL2():
+     y=0
+     while y!=2 and y!=10 and y!=16:
+         y=int(input('Digite a base de destino da converção(2,10,16): '))
+         es()
+         if y!=2 and y!=10 and y!=16:
+             print('Erro. Tente novamente.')
+             es()
+     return y
+
+#TITLE
+def titulo(a,b):
+    print(f'                              CONVERSÃO DE {a} PARA {b}')
+    es()
+    sleep(2)
+
+# VALIDATION OF THE BINARY
+def validaBinario():
+    binario=0
+    while binario<=0:
+        binario=int(input('Digite um número binário: '))
+        es()
+        num=binario
+        while num!=0:
+            resto=num%10
+            if resto==1 or resto==0:
+                num=num//10
+            else:
+                print('Número não binário. Tente novamente')
+                binario=0
+                num=0
+                es()
+    return binario
+
+# VALIDATION OF DECIMAL
+def validaDecimal():
+    decimal=0
+    while decimal<=0:
+            decimal=int(input('Digite um número decimal: '))
+            es()
+            if decimal<=0:
+                print('Número não decimal. Tente novamente')
+                es()
+    return decimal
+
+# VALIDATION OF HEXADECIMAL
+def validaHexadecimal():
+    x=1
+    while x==1:
+        hexadecimal=str(input('Digite um número hexadecimal: '))
+        es()
+        hexadecimal= hexadecimal.upper()
+        lista=[]
+        for i in hexadecimal:
+            lista.append(i)
+        for i in lista:
+            if i!='0' and i!='1' and i!='2' and i!='3' and i!='4' and i!='5' and i!='6' and i!='7' and i!='8' and i!='9' and i!='A' and i!='B' and i!='C' and i!='D' and i!='E' and i!='F':
+               print('Número não Hexadecimal. Tente novamente.')
+               print('')
+               x=1
+            else:
+               x=0
+    return hexadecimal, lista
+
+#SHOW ANSWER
+def mostra(aux,num,convercao):
+    if convercao == 1:
+        x='binário'
+        y='decimal'
+    elif convercao==2:
+        x='binário'
+        y='hexadecimal'
+    elif convercao==3:
+        x='decimal'
+        y='binário'
+    elif convercao==4:
+        x='decimal'
+        y='binário'
+    elif convercao==5:
+        x='hexadecimal'
+        y='binário'
+    elif convercao==6:
+        x='hexadecimal'
+        y='decimal'
+    print(f'O número {x}: {aux} em {y} é: {num}')
+    es()
+
+#BINARY FOR DECIMAL
+def binarioDecimal(num):
+    aux=num
+    decimal=0
+    cont=0
+    while num != 0:
+        resto= num%10
+        decimal= decimal+ resto*2**cont
+        cont=cont+1
+        num=num//10
+    return aux,decimal
+
+#BINARY FOR HEXADECIMAL
+def binarioHexadecimal(num):
+    aux,num= binarioDecimal(num)
+    aux1,num= decimalHexadecimal(num) 
+    return aux, num
+
+#DECIMAL FOR BINARY
+def decimalBinario(num):
+    aux=num
+    binario=0
+    cont=0
+    while num != 0:
+        resto= num%2
+        binario= binario+ resto*10**cont
+        cont=cont+1
+        num=num//2
+    return aux, binario
+
+#DECIMAL FOR HEXADECIMAL
+def decimalHexadecimal(num):
+    aux=num
+    hexa= ''
+    while num!=0:
+        resto=num%16
+        if resto>9:
+            if resto==10:
+                hexa=str(hexa)+'A'
+            elif resto==11:
+                hexa=str(hexa)+'B'
+            elif resto==12:
+                hexa=str(hexa)+'C'
+            elif resto==13:
+                hexa=str(hexa)+'D'
+            elif resto==14:
+                hexa=str(hexa)+'E'
+            elif resto==15:
+                hexa=str(hexa)+'F'
+        else:
+            if resto==0:
+                hexa=str(hexa)+ '0'
+            elif resto==1:
+                hexa=str(hexa)+ '1'
+            elif resto==2:
+                hexa=str(hexa)+ '2'
+            elif resto==3:
+                hexa=str(hexa)+ '3'
+            elif resto==4:
+                hexa=str(hexa)+ '4'
+            elif resto==5:
+                hexa=str(hexa)+ '5'
+            elif resto==6:
+                hexa=str(hexa)+ '6'
+            elif resto==7:
+                hexa=str(hexa)+ '7'
+            elif resto==8:
+                hexa=str(hexa)+ '8'
+            elif resto==9:
+                hexa=str(hexa)+ '9'
+        num=num//16
+    hexa= hexa[::-1]
+    es()
+    return aux, hexa
+
+#HEXADECIMAL FOR BINARY
+def hexadecimalBinario(lista):
+    decimal=hexadecimalDecimal(lista)
+    aux, num=decimalBinario(decimal)
+    return num
+
+#HEXADECIMAL FOR DECIMAL
+def hexadecimalDecimal(lista):
+    lista2=[]
+    for i in lista:
+        if i.isalpha() == True:
+            if i == 'A':
+                lista2.append(10)
+            elif i == 'B':
+                lista2.append(11)
+            elif i == 'C':
+                lista2.append(12)
+            elif i == 'D':
+                lista2.append(13)
+            elif i == 'E':
+                lista2.append(14)
+            elif i == 'F':
+                lista2.append(15)
+        else:
+            if i =='0':
+                lista2.append(0)
+            elif i=='1':
+                lista2.append(1)
+            elif i=='2':
+                lista2.append(2)
+            elif i=='3':
+                lista2.append(3)
+            elif i=='4':
+                lista2.append(4)
+            elif i=='5':
+                lista2.append(5)
+            elif i=='6':
+                lista2.append(6)
+            elif i=='7':
+                lista2.append(7)
+            elif i=='8':
+                lista2.append(8)
+            elif i=='9':
+                lista2.append(9)
+    lista2.reverse()
+    cont=0
+    decimal=0
+    for i in lista2:
+        decimal= decimal + i*16**cont
+        cont=cont+1
+    return decimal
+
+#RESTART
+def reiniciar(a,b):
+    sleep(4)
+    z=0
+    while z==0:
+        z=int(input(f'Escolha sua opção: \n 1 - para digitar outro número {a} \n 2 - para escolher outra converção \n 3 - para finalizar \n Digite 1,2 ou 3: '''))
+        es()
+        if z!=1 and z!=2 and z!=3:
+            print('Opção inválida. Tente novamente. ')
+            es()
+            z=0
+        elif z==1:
+            if a=='BINÁRIO' and b=='DECIMAL':
+                global_binario_for_decimal(a,b)
+            elif a=='BINÁRIO' and b=='HEXADECIMAL':
+                global_binario_for_hexadecimal(a,b)
+            elif a=='DECIMAL' and b=='BINÁRIO':
+                global_decimal_for_binario(a,b)
+            elif a=='DECIMAL' and b=='HEXADECIMAL':
+                global_decimal_for_hexadecimal(a,b)
+            elif a=='HEXADECIMAL' and b=='BINÁRIO':
+                global_hexadecimal_for_binario(a,b)
+            elif a=='HEXADECIMAL' and b=='DECIMAL':
+                global_hexadecimal_for_decimal(a,b)
+        elif z==2:
+            red()
+        elif z==3:
+            break
+
+# GLOBAL BINARY FOR DECIMAL 
+def global_binario_for_decimal(a,b):
+    titulo(a,b)
+    num=validaBinario()
+    calcula()
+    aux,num=binarioDecimal(num)
+    mostra(aux,num,1)
+    reiniciar(a,b)
+
+# GLOBAL BINARY FOR HEXADECIMAL 
+def global_binario_for_hexadecimal(a,b):
+    titulo(a,b)
+    num=validaBinario()
+    calcula()
+    aux,num=binarioHexadecimal(num)
+    mostra(aux,num,2)
+    reiniciar(a,b)
+
+# GLOBAL DECIMAL FOR BINARY 
+def global_decimal_for_binario(a,b):
+    titulo(a,b)
+    num=validaDecimal()
+    calcula()
+    aux,num= decimalBinario(num)
+    mostra(aux,num,3)
+    reiniciar(a,b)
+
+# GLOBAL DECIMAL FOR HEXADECIMAL
+def global_decimal_for_hexadecimal(a,b):
+    titulo(a,b)
+    num=validaDecimal()
+    calcula()
+    aux,num=decimalHexadecimal(num)
+    mostra(aux,num,4)
+    reiniciar(a,b)
+
+# GLOBAL HEXADECIMAL FOR BINARY 
+def global_hexadecimal_for_binario(a,b):
+    titulo(a,b)
+    aux,lista=validaHexadecimal()
+    calcula()
+    num=hexadecimalBinario(lista)
+    mostra(aux,num,5)
+    reiniciar(a,b)
+
+# GLOBAL HEXADECIMAL FOR DECIMAL
+def global_hexadecimal_for_decimal(a,b):
+    titulo(a,b)
+    aux,lista=validaHexadecimal()
+    calcula()
+    num=hexadecimalDecimal(lista)
+    mostra(aux,num,6)
+    reiniciar(a,b)
+
+#REDIRECTION FOR CORRECT OPERATION
+def red ():
+    superEs()
+    print('                              CONVERÇÃO ENTRE BASES DIFERENTES')
+    sleep(2)
+    es()
+    x=VAL1()
+    sleep(1)
+    y=VAL2()
+    if x==2 and y==10:
+        a='BINÁRIO'
+        b='DECIMAL'
+        global_binario_for_decimal(a,b)
+    elif x==2 and y==16:
+        a='BINÁRIO'
+        b='HEXADECIMAL'
+        global_binario_for_hexadecimal(a,b)
+    elif x==10 and y==2:
+        a='DECIMAL'
+        b='BINÁRIO'
+        global_decimal_for_binario(a,b)
+    elif x==10 and y==16:
+        a='DECIMAL'
+        b='HEXADECIMAL'
+        global_decimal_for_hexadecimal(a,b)
+    elif x==16 and y==2:
+        a='HEXADECIMAL'
+        b='BINÁRIO'
+        global_hexadecimal_for_binario(a,b)
+    elif x==16 and y==10:
+        a='HEXADECIMAL'
+        b='DECIMAL'
+        global_hexadecimal_for_decimal(a,b)
+    else:
+        print('Bases iguas! Tente novamente.')
+        print('')
+        sleep(3)
+        red()
+    es()
+    return 
+
+#END
+def final():
+    print('Programa finalizando em:', end='')
+    sleep(2.5)
+    print('3', end='')
+    sleep(0.25)
+    print('.', end='')
+    sleep(0.25)
+    print('.', end='')
+    sleep(0.25)
+    print('.', end='')
+    sleep(0.25)
+    print('2', end='')
+    sleep(0.25)
+    print('.', end='')
+    sleep(0.25)
+    print('.', end='')
+    sleep(0.25)
+    print('.', end='')
+    sleep(0.25)
+    print('1', end='')
+    sleep(0.25)
+    print('.', end='')
+    sleep(0.25)
+    print('.', end='')
+    sleep(0.25)
+    print('.', end='')
+    sleep(0.25)
+    print('.', end='')
+    print('0')
+    
+#GLOBAL
+superEs()
+red()
+final()
